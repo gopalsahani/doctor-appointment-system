@@ -13,11 +13,7 @@ const app = express();
 //midlewares
 app.use(moragan("dev"));
 app.use(express.json());
-//static files
-app.use(express.static(path.join(__dirname,"./client/build")));
-app.get('*',function(req,res){
-  res.sendFile(path.join(__dirname,"./client/build/index.html"));
-})
+
 
 // connection mongodb
 connectDB();
@@ -26,6 +22,12 @@ connectDB();
 app.use("/api/v1/user", require("./routes/userRoutes"));
 app.use("/api/v1/admin", require("./routes/Adminroutes"));
 app.use("/api/v1/doctor", require("./routes/doctorRoutes"));
+
+//static files
+app.use(express.static(path.join(__dirname,"./client/build")));
+app.get('*',function(req,res){
+  res.sendFile(path.join(__dirname,"./client/build/index.html"));
+})
 /*
 app.get("/",(req,res)=>{
     res.status(200);
